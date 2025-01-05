@@ -4,7 +4,9 @@ import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
 eagerLoadControllersFrom("controllers", application)
 
 import TimeEntryController from "./time_entry_controller"
-application.register("time-entry", TimeEntryController)
-
 import TextareaAutogrowController from "./textarea_autogrow_controller"
+import FlashController from "./flash_controller"
+
+application.register("time-entry", TimeEntryController)
 application.register("textarea-autogrow", TextareaAutogrowController)
+application.register("flash", FlashController)

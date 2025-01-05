@@ -1,0 +1,82 @@
+<div class="mb-6">
+  <div class="flex justify-between items-center">
+    <div>
+      <div class="flex items-center space-x-4">
+        <%= link_to project_path(@project), class: "text-gray-600 hover:text-gray-900" do %>
+          <%= @project.name %>
+        <% end %>
+        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <h1 class="text-3xl font-bold"><%= @task.title %></h1>
+      </div>
+    </div>
+    
+    <div class="space-x-2">
+      <%= link_to "Edit Task", edit_project_task_path(@project, @task), class: "btn btn-secondary" %>
+      <%= button_to "Delete Task", project_task_path(@project, @task), method: :delete, class: "btn btn-danger", data: { turbo_confirm: "Are you sure?" } %>
+    </div>
+  </div>
+
+  <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="md:col-span-2">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">Description</h2>
+        <div class="prose max-w-none">
+          <%= @task.description %>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold">Comments</h2>
+        </div>
+        
+        <%= turbo_frame_tag "new_comment" do %>
+          <%= render "comments/form", task: @task, comment: Comment.new %>
+        <% end %>
+
+        <%= turbo_frame_tag "comments" do %>
+          <%= render @comments %>
+        <% end %>
+      </div>
+    </div>
+
+    <div>
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">Details</h2>
+        <dl class="divide-y divide-gray-200">
+          <div class="py-3 flex justify-between">
+            <dt class="text-gray-600">Status</dt>
+            <dd class="font-medium"><%= render "tasks/status_badge", status: @task.status %></dd>
+          </div>
+          <div class="py-3 flex justify-between">
+            <dt class="text-gray-600">Priority</dt>
+            <dd class="font-medium">P<%= @task.priority %></dd>
+          </div>
+          <div class="py-3 flex justify-between">
+            <dt class="text-gray-600">Assignee</dt>
+            <dd class="font-medium"><%= @task.assignee.full_name %></dd>
+          </div>
+          <div class="py-3 flex justify-between">
+            <dt class="text-gray-600">Due Date</dt>
+            <dd class="font-medium"><%= l @task.due_date, format: :long if @task.due_date %></dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold">Time Entries</h2>
+          <%= link_to "Add Time", "#", class: "btn btn-secondary btn-sm", data: { action: "click->time-entry#showForm" } %>
+        </div>
+
+        <%= turbo_frame_tag "new_time_entry" do %>
+          <%= render "time_entries/form", task: @task, time_entry: TimeEntry.new %>
+        <% end %>
+
+        <%= turbo_frame_tag "time_entries" do %>
+          <%= render @time_entries %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div> 

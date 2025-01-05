@@ -1,0 +1,19 @@
+<%= form_with(model: [task, comment], class: "mt-4") do |f| %>
+  <div class="flex items-start space-x-3">
+    <%= image_tag avatar_url_for(current_user), class: "w-8 h-8 rounded-full" %>
+    <div class="flex-1">
+      <%= f.text_area :content, 
+          rows: 2, 
+          class: "form-input w-full",
+          placeholder: "Add a comment...",
+          data: { 
+            controller: "textarea-autogrow",
+            action: "input->textarea-autogrow#resize"
+          } %>
+      
+      <div class="mt-2 flex justify-end">
+        <%= f.submit "Comment", class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+<% end %> 

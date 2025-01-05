@@ -1,0 +1,28 @@
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div>
+    <h2 class="text-2xl font-bold mb-4">Active Projects</h2>
+    <div class="bg-white rounded-lg shadow p-6">
+      <% @projects.each do |project| %>
+        <%= render 'projects/project_card', project: project %>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-2xl font-bold mb-4">Tasks Due Soon</h2>
+    <div class="bg-white rounded-lg shadow p-6">
+      <% @tasks.each do |task| %>
+        <%= render 'tasks/task_card', task: task %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="md:col-span-2">
+    <h2 class="text-2xl font-bold mb-4">Recent Activity</h2>
+    <div class="bg-white rounded-lg shadow p-6">
+      <% @recent_activities.each do |activity| %>
+        <%= render 'comments/comment', comment: activity %>
+      <% end %>
+    </div>
+  </div>
+</div> 

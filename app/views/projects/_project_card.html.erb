@@ -1,0 +1,24 @@
+<div class="bg-white rounded-lg shadow-sm p-4 mb-4" id="<%= dom_id(project) %>">
+  <div class="flex justify-between items-start">
+    <div>
+      <h3 class="text-lg font-semibold">
+        <%= link_to project.name, project_path(project), class: "text-blue-600 hover:text-blue-800" %>
+      </h3>
+      <p class="text-gray-600 text-sm mt-1"><%= truncate(project.description, length: 100) %></p>
+    </div>
+    <span class="px-2 py-1 text-sm rounded <%= project.status == 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+      <%= project.status.titleize %>
+    </span>
+  </div>
+  
+  <div class="mt-4 flex justify-between items-center text-sm text-gray-500">
+    <div>
+      <span><%= project.tasks.count %> tasks</span>
+      <span class="mx-2">•</span>
+      <span><%= project.users.count %> members</span>
+    </div>
+    <div>
+      <%= l project.end_date, format: :short if project.end_date %>
+    </div>
+  </div>
+</div> 

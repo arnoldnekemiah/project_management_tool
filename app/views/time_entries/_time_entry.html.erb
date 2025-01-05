@@ -1,0 +1,28 @@
+<div class="border-b border-gray-200 py-3" id="<%= dom_id(time_entry) %>">
+  <div class="flex justify-between items-start">
+    <div>
+      <div class="text-sm text-gray-500">
+        <%= l time_entry.start_time, format: :short %> - 
+        <%= l time_entry.end_time, format: :short %>
+      </div>
+      <div class="mt-1">
+        <%= time_entry.description %>
+      </div>
+    </div>
+    <div class="flex items-center space-x-2">
+      <span class="text-gray-500 font-medium">
+        <%= number_with_precision(time_entry.duration, precision: 2) %> hours
+      </span>
+      <% if time_entry.user == current_user %>
+        <%= button_to task_time_entry_path(time_entry.task, time_entry),
+            method: :delete,
+            class: "text-red-600 hover:text-red-800",
+            data: { turbo_confirm: "Are you sure?" } do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div> 

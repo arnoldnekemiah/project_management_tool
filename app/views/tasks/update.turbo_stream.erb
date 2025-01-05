@@ -1,0 +1,7 @@
+<%= turbo_stream.replace dom_id(@task) do %>
+  <%= render "tasks/task_card", task: @task %>
+<% end %>
+
+<% if @task.status_previously_changed? %>
+  <%= turbo_stream.remove dom_id(@task, "old") %>
+<% end %> 
